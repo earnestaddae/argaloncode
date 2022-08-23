@@ -68,6 +68,9 @@ audit:
 	staticcheck ./...
 	@echo "Running tests..."
 	go test -race -vet=off ./...
+	go tool cover -func=/tmp/profile.out
+	go tool cover -html=/tmp/profile.out
+	
 
 ## vendor: tidy and vendor dependencies
 .PHONY: vendor
