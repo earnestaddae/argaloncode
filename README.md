@@ -22,11 +22,11 @@ The layout of the project and code, structure and design of the endpoint, and fo
     - MacOS - `brew install make`
     - Windows - `choco install make`
 - Ensure you have [curl](https://curl.se/download.html) or [httpie](https://httpie.io/docs/cli/installation)
-- Clone the repo into a directory of your choice
+- Clone the repo into a directory of your choice (GOPATH recommended)
 - Run `make help` to view the make commands
 - To run tests `make audit`
 - To run vendor `make vendor`
-- Application runs at `localhost:8081`
+- Application runs on `localhost:8081`
 
 #### Buidling & Running application
 - To build binary `make build`

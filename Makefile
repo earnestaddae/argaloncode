@@ -1,5 +1,5 @@
 
-BINARY_NAME=alganon
+BINARY_NAME=argalon
 ENV=development
 
 # ==================================================================================== # 
