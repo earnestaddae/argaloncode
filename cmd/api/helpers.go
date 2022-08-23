@@ -42,9 +42,8 @@ func (app *application) writeJSON(rw http.ResponseWriter, status int, data any, 
 	return nil
 }
 
-// readJSON reads the body of a request and converts it into JSON
-// then it is then used to read the JSON into go objects
-func (app *application) readJSON(rw http.ResponseWriter, r *http.Request, data any) error {
+// readJSON tries to read the body of a request and converts it into JSON
+func (app *application) readJSON(rw http.ResponseWriter, r *http.Request, data interface{}) error {
 	maxBytes := 1_048_576 // 1MB
 	r.Body = http.MaxBytesReader(rw, r.Body, int64(maxBytes))
 
@@ -69,7 +68,7 @@ func (app *application) readJSON(rw http.ResponseWriter, r *http.Request, data a
 		case errors.Is(err, io.EOF):
 			return errors.New("body must not be empty")
 		case strings.HasPrefix(err.Error(), "json: unknown field "):
-			fieldName := strings.TrimPrefix(err.Error(), "json: unknown field")
+			fieldName := strings.TrimPrefix(err.Error(), "json: unknown field ")
 			return fmt.Errorf("body contains unknown key %s", fieldName)
 		case err.Error() == "http: request body too large":
 			return fmt.Errorf("body must not be larger than %d bytes", maxBytes)

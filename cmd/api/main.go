@@ -4,8 +4,6 @@ import (
 	"flag"
 	"log"
 	"os"
-
-	"alganon.net/backend/internal/data"
 )
 
 const version = "0.0.1"
@@ -19,10 +17,9 @@ type config struct {
 
 // application contains the application configurations
 type application struct {
-	config     config
-	infoLog    *log.Logger
-	errorLog   *log.Logger
-	operations data.Operands
+	config   config
+	infoLog  *log.Logger
+	errorLog *log.Logger
 }
 
 func main() {
@@ -36,14 +33,12 @@ func main() {
 	// Declare app logs
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
-	ops := data.Operands{}
 
 	// instantiate the application
 	app := &application{
-		config:     cfg,
-		infoLog:    infoLog,
-		errorLog:   errorLog,
-		operations: ops,
+		config:   cfg,
+		infoLog:  infoLog,
+		errorLog: errorLog,
 	}
 
 	err := app.serve()

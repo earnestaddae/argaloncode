@@ -2,8 +2,6 @@ package main
 
 import (
 	"net/http"
-
-	"alganon.net/backend/internal/data"
 )
 
 // jsonResponse is the struct to display information to the client
@@ -27,14 +25,15 @@ func (app *application) healthcheck(rw http.ResponseWriter, r *http.Request) {
 	err := app.writeJSON(rw, http.StatusOK, env, nil)
 	if err != nil {
 		app.serverErrorResponse(rw, r, err)
+		return
 	}
 }
 
 // divide handles the division of two operands
 func (app *application) divide(rw http.ResponseWriter, r *http.Request) {
 	var input struct {
-		FirstNumber  float64 `json:"a"`
-		SecondNumber float64 `json:"b"`
+		A float64 `json:"a"`
+		B float64 `json:"b"`
 	}
 
 	err := app.readJSON(rw, r, &input)
@@ -43,12 +42,7 @@ func (app *application) divide(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	operands := &data.Operands{
-		A: input.FirstNumber,
-		B: input.SecondNumber,
-	}
-
-	x, y, err := app.operations.Divide(operands.A, operands.B)
+	x, y, err := app.Division(input.A, input.B)
 	if err != nil {
 		app.badRequestResponse(rw, r, err)
 		return

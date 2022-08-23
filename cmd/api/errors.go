@@ -11,7 +11,7 @@ func (app *application) logError(r *http.Request, err error) {
 }
 
 // errorResponse is used for creating specific errors
-func (app *application) errorResponse(rw http.ResponseWriter, r *http.Request, status int, message any) {
+func (app *application) errorResponse(rw http.ResponseWriter, r *http.Request, status int, message interface{}) {
 	errorMessage := envelope{"message": message}
 	payload := jsonResponse{
 		Error: true,
