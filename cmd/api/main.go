@@ -25,7 +25,7 @@ type application struct {
 func main() {
 	var cfg config
 	// Declare flags for the port, environment and version
-	flag.IntVar(&cfg.port, "port", 8080, "Server port to listen on")
+	flag.IntVar(&cfg.port, "port", 8081, "Server port to listen on")
 	flag.StringVar(&cfg.env, "env", "development", "Application environment (development|staging|production")
 	flag.StringVar(&cfg.version, "version", version, "Application version")
 	flag.Parse()
