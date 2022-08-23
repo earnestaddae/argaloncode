@@ -20,6 +20,9 @@ help:
 build:
 	@echo "Building back end..."
 	go build -o=./bin/api/${BINARY_NAME} ./cmd/api
+	@echo "Building binaries for Linux and Windows"
+	GOOS=linux GOARCH=amd64 go build -o=./bin/linux_amd64/api/${BINARY_NAME} ./cmd/api
+	GOOS=windows GOARCH=amd64 go build -o=./bin/windows_amd64/api/${BINARY_NAME} ./cmd/api
 	@echo "Binary built"
 
 ## run: builds and runs the application

@@ -23,6 +23,7 @@ The layout of the project and code, structure and design of the endpoint, and fo
     - Windows - `choco install make`
 - Ensure you have [curl](https://curl.se/download.html) or [httpie](https://httpie.io/docs/cli/installation)
 - Clone the repo into a directory of your choice (GOPATH recommended)
+- Install [Staticcheck](https://github.com/dominikh/go-tools/releases). Alternative run `go install honnef.co/go/tools/cmd/staticcheck@latest` to install staticcheck.
 - Run `make help` to view the make commands
 - To run tests `make audit`
 - To run vendor `make vendor`
@@ -59,3 +60,8 @@ echo '{"a": 3, "b": 9 }' | http -v post http://localhost:8081/v1/divisions
 
 echo '{"a": 3, "b": 0 }' | http -v post http://localhost:8081/v1/divisions
 ```
+
+#### When all fails
+- The binaries for Windows and Linux are located
+- `.bin/api/linux_amd64/api/argalon`
+- `.bin/api/windowns_amd64/api/argalon`
