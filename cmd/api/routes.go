@@ -14,6 +14,7 @@ func (app *application) routes() http.Handler {
 
 	mux.Use(middleware.Logger)
 	mux.Use(middleware.RealIP)
+	mux.Use(app.recoverPanic)
 	mux.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   []string{"https://*", "http://*"},
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
