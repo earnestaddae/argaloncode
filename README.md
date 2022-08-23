@@ -14,3 +14,48 @@ The layout of the project and code, structure and design of the endpoint, and fo
 – You can use any project template, framework, or library, ... as you like.
 – Consider things like edge cases, error handling, logging, and tests if you can.
 – Please include instructions for building the project, running the tests (if there are any), and how to call the endpoint.
+
+#### Installation 
+- Ensure you have the latest version of [golang installed](https://go.dev/dl/)
+- Ensure you have make install for 
+    - Ubuntu - `sudo apt install make`
+    - MacOS - `brew install make`
+    - Windows - `choco install make`
+- Ensure you have [curl](https://curl.se/download.html) or [httpie](https://httpie.io/docs/cli/installation)
+- Clone the repo into a directory of your choice
+- Run `make help` to view the make commands
+- To run tests `make audit`
+- To run vendor `make vendor`
+- Application runs at `localhost:8081`
+
+#### Buidling & Running application
+- To build binary `make build`
+- To start application `make start`
+- To stop application `make stop`
+
+#### Curl / httpie commands - CLI test cases
+- CURL
+```shell
+BODY='{"a":100,"b":2 }'
+curl -i -d "$BODY" http://localhost:8081/v1/divisions
+
+BODY='{"a":1,"b":1 }'
+curl -i -d "$BODY" http://localhost:8081/v1/divisions
+
+BODY='{"a":3,"b":9 }'
+curl -i -d "$BODY" http://localhost:8081/v1/divisions
+
+BODY='{"a":3,"b":0 }'
+curl -i -d "$BODY" http://localhost:8081/v1/divisions
+```
+
+- HTTPIE 
+```shell 
+echo '{"a": 100, "b": 2 }' | http -v post http://localhost:8081/v1/divisions
+
+echo '{"a": 1, "b": 1 }' | http -v post http://localhost:8081/v1/divisions
+
+echo '{"a": 3, "b": 9 }' | http -v post http://localhost:8081/v1/divisions
+
+echo '{"a": 3, "b": 0 }' | http -v post http://localhost:8081/v1/divisions
+```
