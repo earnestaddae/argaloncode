@@ -4,20 +4,25 @@ import (
 	"flag"
 	"log"
 	"os"
+
+	"alganon.net/backend/internal/data"
 )
 
 const version = "0.0.1"
 
+// config contains the configurations
 type config struct {
 	port    int
 	env     string
 	version string
 }
 
+// application contains the application configurations
 type application struct {
-	config   config
-	infoLog  *log.Logger
-	errorLog *log.Logger
+	config     config
+	infoLog    *log.Logger
+	errorLog   *log.Logger
+	operations data.Operands
 }
 
 func main() {
@@ -31,12 +36,14 @@ func main() {
 	// Declare app logs
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	ops := data.Operands{}
 
 	// instantiate the application
 	app := &application{
-		config:   cfg,
-		infoLog:  infoLog,
-		errorLog: errorLog,
+		config:     cfg,
+		infoLog:    infoLog,
+		errorLog:   errorLog,
+		operations: ops,
 	}
 
 	err := app.serve()

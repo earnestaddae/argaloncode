@@ -8,6 +8,7 @@ import (
 	"github.com/go-chi/cors"
 )
 
+// routes serves the endpoints
 func (app *application) routes() http.Handler {
 	mux := chi.NewRouter()
 
@@ -22,6 +23,7 @@ func (app *application) routes() http.Handler {
 	}))
 
 	mux.Get("/v1/healthcheck", app.healthcheck)
+	mux.Post("/v1/divisions", app.divide)
 
 	return mux
 }
