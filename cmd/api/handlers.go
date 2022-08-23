@@ -11,7 +11,7 @@ type jsonResponse struct {
 }
 
 // envelope is used to encapsulate data for jsonResponse
-type envelope map[string]any
+type envelope map[string]interface{}
 
 // healthcheck displays the status of the api
 func (app *application) healthcheck(rw http.ResponseWriter, r *http.Request) {
