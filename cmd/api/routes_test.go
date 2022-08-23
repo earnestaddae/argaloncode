@@ -18,7 +18,7 @@ func TestRouteExist(t *testing.T) {
 func routeExists(t *testing.T, routes chi.Router, route string) {
 	found := false
 
-	_ = chi.Walk(routes, func(method, foundRoute string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
+	_ = chi.Walk(routes, func(_, foundRoute string, _ http.Handler, _ ...func(http.Handler) http.Handler) error {
 		if route == foundRoute {
 			found = true
 		}
