@@ -1,28 +1,22 @@
 package data
 
 import (
-	"fmt"
+	"errors"
 )
 
 // Operands is the struct containing the first and second numbers as operands
 type Operands struct {
-	FirstNumber  float64 `json:"first_number"`
-	SecondNumber float64 `json:"second_number"`
+	A float64 `json:"a"`
+	B float64 `json:"b"`
 }
 
 // Divide returns a map of string and float of x/y and y/x
-func (op *Operands) Divide(x, y float64) (map[string]float64, error) {
-	if y == 0 {
-		return nil, fmt.Errorf("can't divide %0.4f by zero", x)
+func (op *Operands) Divide(a, b float64) (float64, float64, error) {
+	if b == 0 {
+		return 0, 0, errors.New("can't divide by zero")
 	}
+	op.A = a
+	op.B = b
 
-	op.FirstNumber = x
-	op.SecondNumber = y
-
-	result := map[string]float64{
-		"first_number / second_number": op.FirstNumber / op.SecondNumber,
-		"second_number / first_number": op.SecondNumber / op.FirstNumber,
-	}
-
-	return result, nil
+	return op.A / op.B, op.B / op.A, nil
 }

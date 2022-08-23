@@ -33,8 +33,8 @@ func (app *application) healthcheck(rw http.ResponseWriter, r *http.Request) {
 // divide handles the division of two operands
 func (app *application) divide(rw http.ResponseWriter, r *http.Request) {
 	var input struct {
-		FirstNumber  float64 `json:"first_number"`
-		SecondNumber float64 `json:"second_number"`
+		FirstNumber  float64 `json:"a"`
+		SecondNumber float64 `json:"b"`
 	}
 
 	err := app.readJSON(rw, r, &input)
@@ -44,11 +44,11 @@ func (app *application) divide(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	operands := &data.Operands{
-		FirstNumber:  input.FirstNumber,
-		SecondNumber: input.SecondNumber,
+		A: input.FirstNumber,
+		B: input.SecondNumber,
 	}
 
-	result, err := app.operations.Divide(operands.FirstNumber, operands.SecondNumber)
+	x, y, err := app.operations.Divide(operands.A, operands.B)
 	if err != nil {
 		app.badRequestResponse(rw, r, err)
 		return
@@ -56,7 +56,10 @@ func (app *application) divide(rw http.ResponseWriter, r *http.Request) {
 
 	payload := jsonResponse{
 		Error: false,
-		Data:  envelope{"result": result},
+		Data: envelope{
+			"a divided by b": x,
+			"b divided by a": y,
+		},
 	}
 
 	err = app.writeJSON(rw, http.StatusCreated, payload, nil)
