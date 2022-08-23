@@ -38,3 +38,9 @@ func (app *application) badRequestResponse(rw http.ResponseWriter, r *http.Reque
 	app.errorResponse(rw, r, http.StatusBadRequest, err.Error())
 	return nil
 }
+
+// failedValidationResponse fires 422 UnprocessableEntity status code
+func (app *application) failedValidationResponse(rw http.ResponseWriter, r *http.Request, err error) {
+	message := "Both a and b can't be zero"
+	app.errorResponse(rw, r, http.StatusUnprocessableEntity, message)
+}

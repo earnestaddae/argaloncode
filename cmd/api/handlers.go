@@ -42,6 +42,11 @@ func (app *application) divide(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if input.A == 0 || input.B == 0 {
+		app.failedValidationResponse(rw, r, err)
+		return
+	}
+
 	x, y, err := app.Division(input.A, input.B)
 	if err != nil {
 		app.badRequestResponse(rw, r, err)

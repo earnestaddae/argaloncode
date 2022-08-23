@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Tue Aug 23 17:43:50 2022
+# Make data base, printed on Tue Aug 23 19:47:20 2022
 
 # Variables
 
@@ -21,7 +21,7 @@ make: *** No rule to make target `all'.  Stop.
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # makefile (from `Makefile', line 2)
-BINARY_NAME = alganon
+BINARY_NAME = argalon
 # environment
 LC_CTYPE = UTF-8
 # automatic
@@ -54,8 +54,6 @@ PATH = /Users/earnestaddae/.pyenv/plugins/pyenv-virtualenv/shims:/Users/earnesta
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 GOPATH = /Users/earnestaddae/go
-# environment
-LaunchInstanceID = E5712277-F072-45CF-B5B9-E9A9621C99DD
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
@@ -115,7 +113,7 @@ USER = earnestaddae
 # default
 MAKECMDGOALS := all
 # environment
-TERM_SESSION_ID = w0t1p0:A6F29EC0-AC99-4A51-8E85-949ACB4AA431
+TERM_SESSION_ID = w0t0p0:B5378FD2-0695-4E55-A73A-BDB6073C88E5
 # environment
 LESS = -R
 # automatic
@@ -143,7 +141,7 @@ MFLAGS = -Rrqp
 # environment
 TERM_PROGRAM_VERSION = 3.4.16
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.113662198.113662204.53D50BCB-E608-41E4-8DF4-68754D296FF7
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.113662198.113662204.377D07D5-70DB-468D-848E-A367CEDE4A22
 # environment
 LC_TERMINAL_VERSION = 3.4.16
 # automatic
@@ -151,7 +149,7 @@ LC_TERMINAL_VERSION = 3.4.16
 # automatic
 +F = $(notdir $+)
 # environment
-ITERM_SESSION_ID = w0t1p0:A6F29EC0-AC99-4A51-8E85-949ACB4AA431
+ITERM_SESSION_ID = w0t0p0:B5378FD2-0695-4E55-A73A-BDB6073C88E5
 # environment
 COLORFGBG = 15;0
 # environment
@@ -174,8 +172,6 @@ EDITOR = subl
 PAGER = less
 # environment
 LC_ALL = C
-# environment
-SECURITYSESSIONID = 186a4
 # automatic
 ^F = $(notdir $^)
 # default
@@ -193,9 +189,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 11285
+VSCODE_PID = 80843
 # variable set hash-table stats:
-# Load=90/1024=9%, Rehash=0, Collisions=7/114=6%
+# Load=88/1024=9%, Rehash=0, Collisions=7/112=6%
 
 # Pattern-specific Variable Values
 
@@ -218,7 +214,7 @@ stop:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 47):
+#  commands to execute (from `Makefile', line 50):
 	@echo "Stopping back end..."
 	@-pkill -SIGTERM -f "./bin/api/${BINARY_NAME}"
 	@echo "Stopped the back end!"
@@ -247,7 +243,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-23 17:09:57
+#  Last modified 2022-08-23 19:27:29
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -267,6 +263,9 @@ build:
 #  commands to execute (from `Makefile', line 21):
 	@echo "Building back end..."
 	go build -o=./bin/api/${BINARY_NAME} ./cmd/api
+	@echo "Building binaries for Linux and Windows"
+	GOOS=linux GOARCH=amd64 go build -o=./bin/linux_amd64/api/${BINARY_NAME} ./cmd/api
+	GOOS=windows GOARCH=amd64 go build -o=./bin/windows_amd64/api/${BINARY_NAME} ./cmd/api
 	@echo "Binary built"
 	
 
@@ -291,7 +290,7 @@ audit:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 61):
+#  commands to execute (from `Makefile', line 64):
 	@echo "Formating code..."
 	go fmt ./...
 	@echo "Vetting code..."
@@ -299,6 +298,8 @@ audit:
 	staticcheck ./...
 	@echo "Running tests..."
 	go test -race -vet=off ./...
+	go tool cover -func=/tmp/profile.out
+	go tool cover -html=/tmp/profile.out
 	
 
 restart: stop start
@@ -312,19 +313,20 @@ run: build
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 28):
+#  commands to execute (from `Makefile', line 31):
 	@echo "Starting back end..."
 	@env ENV=${ENV} ./bin/api/${BINARY_NAME}
+ 
 	@echo "Back end started!"
 	
 
 clean:
+ 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
- 
-#  commands to execute (from `Makefile', line 35):
+#  commands to execute (from `Makefile', line 38):
 	@echo "Cleaning"
 	@go clean 
 	@rm ./bin/api/${BINARY_NAME}
@@ -336,7 +338,7 @@ vendor:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 72):
+#  commands to execute (from `Makefile', line 78):
 	@echo "Tidying and verifying module dependencies..."
 	go mod tidy 
 	go mod verify
@@ -357,6 +359,6 @@ vendor:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Aug 23 17:43:50 2022
+# Finished Make data base on Tue Aug 23 19:47:20 2022
 
  
